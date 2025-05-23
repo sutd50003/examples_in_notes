@@ -3,7 +3,8 @@ const model = require('../models/message.js');
 var router = express.Router();
 
 /* GET echo listing. */
-/* API call only, not for approach 1 or 2.
+// API call only, for week 2 not for week 3. 
+
 router.get('/:msg', async function(req, res, next) {
     const msg = req.params.msg;
     const message = new model.Message(msg, new Date());
@@ -12,9 +13,8 @@ router.get('/:msg', async function(req, res, next) {
     console.log(messages);
     res.send(`${JSON.stringify(messages)}`);
 });
-*/
 
-
+// for week 3
 /* for approach 1
 router.get('/', async function(req, res, next) {
     const messages = await model.all();
@@ -31,6 +31,7 @@ router.post('/submit', async function(req, res, next) {
 */
 
 
+/* for approach 2
 router.get('/', async function(req, res, next) {
     res.render(`echoajax`, { 'title': "Echo App"});
 });
@@ -42,7 +43,7 @@ router.get('/all', async function(req, res, next) {
 });
 
 
-
+// post version
 router.post('/submit/', async function(req, res, next) {
     const msg = req.body.msg;
     const message = new model.Message(msg, new Date());
@@ -51,6 +52,7 @@ router.post('/submit/', async function(req, res, next) {
     res.set('Access-Control-Allow-Origin', 'http://localhost:5000');
     res.send(`${JSON.stringify(messages)}`);
 });
+// */
 
 /* get version of the above
 router.get('/submit/:msg', async function(req, res, next) {
