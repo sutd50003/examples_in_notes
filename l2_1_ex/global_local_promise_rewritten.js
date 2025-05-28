@@ -18,7 +18,7 @@ x.then (
         // demo 2 - async function and await
         console.log("\nDemo 2");
         function return_z(str) {
-            x.then((c) => {
+            return x.then((c) => {
                 console.log(str + " inside then: " + c); 
                 delay(3000);
                 return 33.33;
