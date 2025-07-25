@@ -1,0 +1,4 @@
+#file:Stack.test.js following the given test cases 1 and 2, complete the rest of test cases.
+
+
+#file:Stack.test.js following the given test cases 1, 2, 3 and 4, write 5 more test cases in comments.
