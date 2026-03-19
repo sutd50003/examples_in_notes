@@ -37,7 +37,7 @@ router.get('/', async function(req: Request, res: Response, next: NextFunction):
 
 router.get('/all', async function(req: Request, res: Response, next: NextFunction): Promise<void> {
     const messages = await model.all();
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.set('Access-Control-Allow-Origin', 'http://localhost:5001');
     res.send(`${JSON.stringify(messages)}`);
 });
 
@@ -48,7 +48,7 @@ router.post('/submit/', async function(req: Request, res: Response, next: NextFu
     const message = new model.Message(msg, new Date());
     await model.insertMany([message]);
     const messages = await model.all();
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.set('Access-Control-Allow-Origin', 'http://localhost:5001');
     res.send(`${JSON.stringify(messages)}`);
 });
 
