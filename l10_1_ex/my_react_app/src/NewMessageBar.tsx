@@ -1,6 +1,10 @@
-import React from "react";
+interface NewMessageBarProps {
+  message: string;
+  onMessageChange: (value: string) => void;
+  onSubmitClick: () => void;
+}
 
-function NewMessageBar({message, onMessageChange, onSubmitClick}) {
+function NewMessageBar({message, onMessageChange, onSubmitClick}: NewMessageBarProps) {
     return (
         <div>
             <input type="text" aria-label="echo-message" placeholder="" 

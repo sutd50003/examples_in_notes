@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Echo from './Echo';
 
 function App() {

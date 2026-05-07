@@ -1,9 +1,9 @@
-import { fireEvent, render, screen, act } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe("An end-to-end testing for Echo", () => {
-  function getRandomInt(max) {
+  function getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
   }
   
@@ -14,8 +14,8 @@ describe("An end-to-end testing for Echo", () => {
     const submitButton = screen.getByText(/submit/i);
 
     fireEvent.change(textbox, {target: {value: msgTxt}});
-    expect(textbox.value).toBe(msgTxt);
-    const _     = await userEvent.click(submitButton);
+    expect((textbox as HTMLInputElement).value).toBe(msgTxt);
+    await userEvent.click(submitButton);
     const table = await screen.findByTestId("message-list");
     fireEvent.change(textbox, {target: {value: ''}});
     const text = await screen.findByText(msgTxt);

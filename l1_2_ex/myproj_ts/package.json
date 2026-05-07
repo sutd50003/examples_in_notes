@@ -1,0 +1,19 @@
+{
+  "name": "myproj_ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/moduletest.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/moduletest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

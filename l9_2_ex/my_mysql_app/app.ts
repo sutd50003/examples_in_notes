@@ -1,22 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import createError, { HttpError } from 'http-errors';
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
-const db = require('./models/db.js');
-const process = require('process');
+import * as db from './models/db';
+import process from 'process';
 
 process.on('SIGINT', db.cleanup);
 process.on('SIGTERM', db.cleanup);
 
-const message = require('./models/message.js');
+import * as message from './models/message';
 message.sync();
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var echoRouter = require('./routes/echo');
+import indexRouter from './routes/index';
+import usersRouter from './routes/users';
+import echoRouter from './routes/echo';
 
 var app = express();
 
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
@@ -38,12 +38,12 @@ app.use('/users', usersRouter);
 app.use('/echo', echoRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req: Request, res: Response, next: NextFunction): void {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction): void {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -53,4 +53,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;

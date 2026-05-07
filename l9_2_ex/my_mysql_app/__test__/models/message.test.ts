@@ -1,14 +1,14 @@
-const db = require('../../models/db.js');
-const message = require('../../models/message.js');
+import * as db from '../../models/db';
+import * as message from '../../models/message';
 
-async function setup() {
+async function setup(): Promise<void> {
     try {
         // TODO backup the existing data to a temp table?
         await db.pool.query(`
             DELETE FROM message;`
         );
         await db.pool.query(`
-            INSERT INTO message (msg, time) 
+            INSERT INTO message (msg, time)
             VALUES ('msg a', '2009-01-01:00:00:00'),
                    ('msg b', '2009-01-02:00:00:00')
         `);
@@ -18,7 +18,7 @@ async function setup() {
     }
 }
 
-async function teardown() {
+async function teardown(): Promise<void> {
     // TODO restore the table from the backup;
     try {
         await db.pool.query(`
@@ -36,7 +36,7 @@ describe("models.message.all() tests", () => {
         await setup();
     });
     test ("testing message.all()", () => {
-        const expected = [ new message.Message('msg a', new Date('2009-01-01:00:00:00')), 
+        const expected = [ new message.Message('msg a', new Date('2009-01-01:00:00:00')),
                            new message.Message('msg b', new Date('2009-01-02:00:00:00'))]
         const result_promise = message.all();
         result_promise.then((result) => {

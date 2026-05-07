@@ -5,13 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5000, // Replace with your desired port number
+    port: 5001, // Replace with your desired port number
   },
   test: {
     // 👋 add the line below to add jsdom to vite
     environment: 'jsdom',
     // hey! 👋 over here
     globals: true,
-    setupFiles: "./tests/setup.js",
+    setupFiles: "./tests/setup.ts",
   }
 })

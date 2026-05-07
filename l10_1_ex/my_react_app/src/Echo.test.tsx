@@ -43,7 +43,7 @@ describe("testing Echo component", () => {
         const submitButton = screen.getByText(/submit/i);
         fireEvent.change(textbox, {target: {value: msgTxt}});
         userEvent.click(submitButton);
-        expect(textbox.value).toBe(msgTxt);
+        expect((textbox as HTMLInputElement).value).toBe(msgTxt);
         const msgTime = '2024-06-25T00:12:30.000Z';
         const table = await screen.findByTestId("message-list");
         const row = await screen.findByTestId(msgTime);
@@ -52,5 +52,3 @@ describe("testing Echo component", () => {
         expect(table.contains(row));
     })
 })
-
-

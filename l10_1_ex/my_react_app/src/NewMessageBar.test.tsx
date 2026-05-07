@@ -4,9 +4,9 @@ import NewMessageBar from './NewMessageBar';
 describe( "testing New Message Bar component", () => {
     // a visual test
     test('Button is rendered in NewMessageBar', () => {
-        const msgTxt = "hello";
-        const setMsgTxt = () => {};
-        const handleSubmitClick = () => {};  
+        const msgTxt: string = "hello";
+        const setMsgTxt: () => void = () => {};
+        const handleSubmitClick: () => void = () => {};  
         render(<NewMessageBar 
                 message={msgTxt} 
                 onMessageChange={setMsgTxt} 
@@ -17,15 +17,14 @@ describe( "testing New Message Bar component", () => {
 
     // a visual test
     test('Textbox is rendered in NewMessageBar', () => {
-        const msgTxt = "hello";
-        const setMsgTxt = () => {};
-        const handleSubmitClick = () => {};  
+        const msgTxt: string = "hello";
+        const setMsgTxt: () => void = () => {};
+        const handleSubmitClick: () => void = () => {};  
         render(<NewMessageBar 
             message={msgTxt} 
             onMessageChange={setMsgTxt} 
             onSubmitClick={handleSubmitClick}/>);
         const textbox = screen.getByLabelText("echo-message");
-        expect(textbox.value).toBe('hello');
+        expect((textbox as HTMLInputElement).value).toBe('hello');
     });
 });
-  

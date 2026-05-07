@@ -1,7 +1,8 @@
-const mysql = require('mysql2')
+import mysql from 'mysql2';
+import { Pool } from 'mysql2/promise';
 
 
-let pool = mysql
+let pool: Pool = mysql
   .createPool({
     host: "localhost",
     user: "pichu",
@@ -12,8 +13,8 @@ let pool = mysql
   .promise();
 
 
-async function cleanup() {
+async function cleanup(): Promise<void> {
     await pool.end();
 }
 
-module.exports = {pool, cleanup};
+export { pool, cleanup };

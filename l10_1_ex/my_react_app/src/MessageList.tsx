@@ -1,4 +1,13 @@
-function MessageList({messages}) {
+interface Message {
+    time: string;
+    msg: string;
+}
+
+interface MessageListProps {
+    messages: Message[];
+}
+
+function MessageList({messages}: MessageListProps) {
     let rows = [];
     for (let i in messages) {
         rows.push(

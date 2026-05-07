@@ -1,18 +1,26 @@
-const db = require('./db.js');
+import * as db from './db';
+import { RowDataPacket, ResultSetHeader, FieldPacket } from 'mysql2/promise';
 
 
-const tableName = 'message';
+const tableName: string = 'message';
 
+interface MessageRow extends RowDataPacket {
+    msg: string;
+    time: Date;
+}
 
 class Message {
-    constructor(msg, time) {
+    msg: string;
+    time: Date;
+
+    constructor(msg: string, time: Date) {
         this.msg = msg;
         this.time = time;
     }
 }
 
 
-async function sync() {
+async function sync(): Promise<void> {
     try {
         db.pool.query(`
         CREATE TABLE IF NOT EXISTS ${tableName} (
@@ -26,13 +34,13 @@ async function sync() {
     }
 }
 
-async function all() {
+async function all(): Promise<Message[]> {
     try {
-        
-        const [rows, fieldDefs] = await db.pool.query(`
+
+        const [rows]: [MessageRow[], FieldPacket[]] = await db.pool.query<MessageRow[]>(`
             SELECT msg, time FROM ${tableName}
         `);
-        var list = [];
+        var list: Message[] = [];
         console.log(rows.length);
         for (let row of rows) {
             let message = new Message(row.msg, row.time);
@@ -45,10 +53,10 @@ async function all() {
     }
 }
 
-async function insertOne(message) {
+async function insertOne(message: Message): Promise<void> {
     try {
-     
-        const [rows, fieldDefs] = await db.pool.query(`
+
+        const [rows, fieldDefs]: [ResultSetHeader, FieldPacket[]] = await db.pool.query<ResultSetHeader>(`
             INSERT INTO ${tableName} (msg, time) VALUES (?, ?)
         `, [message.msg, message.time]);
         console.log(rows);
@@ -59,15 +67,15 @@ async function insertOne(message) {
     }
 }
 
-async function insertMany(messages) {
+async function insertMany(messages: Message[]): Promise<void> {
     for (let message of messages) {
         await insertOne(message);
     }
 }
 
-async function deleteOne(message) {
+async function deleteOne(message: Message): Promise<void> {
     try {
-        const [rows, fieldDefs] = await db.pool.query(`
+        const [rows, fieldDefs]: [ResultSetHeader, FieldPacket[]] = await db.pool.query<ResultSetHeader>(`
             DELETE FROM ${tableName} where time = ?`, [message.time]);
     } catch (error) {
         console.error("database connection failed. " + error);
@@ -76,4 +84,4 @@ async function deleteOne(message) {
 }
 
 
-module.exports =  { Message, all, sync, insertOne, insertMany, deleteOne }
+export { Message, all, sync, insertOne, insertMany, deleteOne };

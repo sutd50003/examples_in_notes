@@ -1,17 +1,25 @@
-import { useState, Component, useEffect } from "react";
-import React from "react";
+import { useState, useEffect } from "react";
 import NewMessageBar from "./NewMessageBar";
 import MessageList from "./MessageList";
 
+interface Message {
+    time: string;
+    msg: string;
+}
 
-function Echo({http_addr}) {
-    const [msgTxt, setMsgTxt] = useState("");
-    function handleSubmitClick() {
+interface EchoProps {
+    http_addr: string;
+}
+
+
+function Echo({http_addr}: EchoProps) {
+    const [msgTxt, setMsgTxt] = useState<string>("");
+    function handleSubmitClick(): void {
         submitNewMessage();    
     }
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     
-    async function submitNewMessage() {
+    async function submitNewMessage(): Promise<void> {
         console.log("submitNewMessage"); 
         console.log(msgTxt);
         const response = await fetch(`${http_addr}/echo/submit`,
@@ -23,15 +31,15 @@ function Echo({http_addr}) {
             }              
         });
         const text = await response.text();
-        const json = JSON.parse(text);
+        const json = JSON.parse(text) as Message[];
         setMessages(json);
     }
 
 
-    async function initMessages() {
+    async function initMessages(): Promise<void> {
         const response = await fetch(`${http_addr}/echo/all`);
         const text = await response.text();
-        const json = JSON.parse(text);
+        const json = JSON.parse(text) as Message[];
         setMessages(json);
     }
 
