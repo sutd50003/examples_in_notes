@@ -1,4 +1,4 @@
-const FibSeq = require('../src/FibSeq.js');
+const FibSeq = require('../src/FibSeq');
 
 describe("FibSeq class test", () => {
     const fibSeq = new FibSeq();

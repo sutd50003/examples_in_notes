@@ -1,4 +1,4 @@
-const capcat = require('../src/capcat.js');
+const capcat = require('../src/capcat');
 const fs = require('node:fs').promises;
 const existsSync = require('node:fs').existsSync;
 

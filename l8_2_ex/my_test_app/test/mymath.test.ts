@@ -1,4 +1,4 @@
-const mymath = require('../src/mymath.js');
+const mymath = require('../src/mymath');
 
 describe("mymath sum tests", () => {
     test ("summing of two positive numbers", () => {
