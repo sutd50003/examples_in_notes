@@ -1,4 +1,4 @@
-const FibSeq = require('../src/FibSeq');
+import { FibSeq } from '../src/FibSeq';
 
 describe("FibSeq class test", () => {
     const fibSeq = new FibSeq();
@@ -13,16 +13,16 @@ describe("FibSeq class test", () => {
 })
 
 describe("FibSeq class test with setup and tear down", () =>{
-    let fibSeq: InstanceType<typeof FibSeq> | null = null;
+    let fibSeq: FibSeq | null = null;
     beforeEach(() => {
         fibSeq = new FibSeq();
     });
     test ("first fib num is 1 after reset", () => {
-        const result = fibSeq.next();
+        const result = fibSeq?.next();
         expect(result).toBe(1);
     });
     test ("second fib num is 1 after reset", () => {
-        const result = fibSeq.next();
+        const result = fibSeq?.next();
         expect(result).toBe(1);
     });
     afterEach(() => {

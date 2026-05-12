@@ -1,9 +1,6 @@
-import * as fs from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 
-async function capcat(file: string): Promise<string> {
-    const content = await fs.readFile(file, 'utf8');
-    const result = content.toUpperCase();
-    return result;
-}
-
-export = capcat;
+export const capcat = async (file: string): Promise<string> => {
+    const content = await readFile(file, 'utf8');
+    return content.toUpperCase();
+};

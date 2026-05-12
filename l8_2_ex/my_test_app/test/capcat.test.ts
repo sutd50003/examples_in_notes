@@ -1,18 +1,16 @@
-const capcat = require('../src/capcat');
-const fs = require('node:fs').promises;
-const existsSync = require('node:fs').existsSync;
+import { capcat } from '../src/capcat';
+import { writeFile, rm } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 async function setup() {
-    // make sure the input file for the first test case exists
-    await fs.writeFile('./test1.txt', 'hello');
-    // make sure the input file for the second test case does not exist
+    await writeFile('./test1.txt', 'hello');
     if (existsSync('./test2.txt')) {
-        await fs.rm('./test2.txt');
+        await rm('./test2.txt');
     }
 }
 
 async function teardown() {
-    await fs.rm('./test1.txt');
+    await rm('./test1.txt');
 }
 
 
@@ -29,8 +27,9 @@ describe("capcat tests", () => {
     test ("printing a non-existing file", async () => {
         try {
             await capcat('./test2.txt');
-        } catch (e: any) {
-            expect(e.code).toBe('ENOENT');
+        } catch (e: unknown) {
+            const err = e as { code?: string };
+            expect(err.code).toBe('ENOENT');
         };
     });
     
