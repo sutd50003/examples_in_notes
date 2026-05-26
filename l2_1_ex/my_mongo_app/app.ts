@@ -14,7 +14,7 @@ process.on('SIGTERM', cleanup);
 
 const app: Application = express();
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
