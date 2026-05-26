@@ -1,4 +1,4 @@
-import { Db } from 'mongodb';
+import { Filter, Document } from 'mongodb';
 import { db } from './db';
 
 const collectionName = 'message';
@@ -34,7 +34,7 @@ export async function all(): Promise<Message[]> {
     } 
 }
 
-export async function find(p: object): Promise<Message[]> {
+export async function find(p: Filter<Document>): Promise<Message[]> {
     if (!db) {
         throw new Error("Database not initialized");
     }
